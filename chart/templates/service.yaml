@@ -18,22 +18,25 @@ spec:
   - "{{ .Values.name }}-service.backend.svc.cluster.local"
   
   http:
-  - name: primary        # referenced in canary.trafficRouting.istio.virtualService.routes
+  - name: primary
     route:
-    - match:
+     - destination:
+        host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.canaryService
+        port:
+          number: 8080
+      weight: 0
+  - name: canary
+    match:
+     - headers:
+        rollout:
+          exact: canary  
+    route:
     - destination:
         host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.stableService
         port:
           number: 8080
       weight: 100
-    - headers:
-        rollout:
-          exact: canary
-    - destination:
-        host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.canaryService
-        port:
-          number: 8080
-      weight: 0
+   
 ---
 #TaefikService
 ---
