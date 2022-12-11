@@ -2,19 +2,19 @@
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
-#   name: api
+#   name: {{ .Values.name }}
 # spec:
 #   selector:
 #     matchLabels:
-#       app: api
+#       app: {{ .Values.name }}
 #   replicas: {{ .Values.replicas }}
 #   template:
 #     metadata:
 #       labels:
-#         app: api
+#         app: {{ .Values.name }}
 #     spec:
 #       containers:
-#       - name: api
+#       - name: {{ .Values.name }}
 #         image: {{ .Values.image.name }}
 #         imagePullPolicy: {{ .Values.image.pullPolicy }}
 #         ports:

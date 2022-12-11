@@ -17,8 +17,8 @@ metadata:
   name: {{ .Values.name }}-vsvc
 spec:
   hosts:
-  - "{{ .Values.name }}-service.backend.svc.cluster.local"
-  # - "{{ .Values.name }}-service"
+  # - "{{ .Values.name }}-service.backend.svc.cluster.local"
+   - "service"
   http:
   - name: primary        # referenced in canary.trafficRouting.istio.virtualService.routes
     route:
