@@ -28,8 +28,8 @@ spec:
   - name: canary
     match:
     - headers:
-      rollout:
-        exact: canary  
+        rollout:
+          exact: canary  
     route:
     - destination:
         host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.stableService
