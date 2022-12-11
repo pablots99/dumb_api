@@ -6,7 +6,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
 ---
 #itsio vsvc
 apiVersion: networking.istio.io/v1alpha3
@@ -15,8 +15,8 @@ metadata:
   name: {{ .Values.name }}-vsvc
 spec:
   hosts:
-  # - "{{ .Values.name }}-service.backend.svc.cluster.local"
-  - "{{ .Values.name }}-service"
+  - "{{ .Values.name }}-service.backend.svc.cluster.local"
+  # - "{{ .Values.name }}-service"
   http:
   - name: primary        # referenced in canary.trafficRouting.istio.virtualService.routes
     route:
