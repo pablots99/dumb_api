@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: {{ .Values.name }}-service
 spec:
+  selector:
+    app: api
   ports:
   - port: 8080
     protocol: TCP
+    
 
 ---
 #itsio vsvc
@@ -16,7 +19,8 @@ metadata:
 spec:
   hosts:
   - "{{ .Values.name }}-service.backend.svc.cluster.local"
-  
+  - "{{ .Values.name }}-canary.backend.svc.cluster.local"
+  - "{{ .Values.name }}-stable.backend.svc.cluster.local"
   http:
   - name: stable
     route:
