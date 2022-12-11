@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: {{ .Values.name }}-service
 spec:
+  selector:
+    app: api
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+
 ---
 #itsio vsvc
 apiVersion: networking.istio.io/v1alpha3
