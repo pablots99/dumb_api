@@ -64,9 +64,9 @@ spec:
         - setHeaderRoute:
             name: rollout
             match:
-            - headerName: rollout # Custom-Header1=Mozilla
+            - headerName: rollout # rollout=canary
               headerValue:
-                exact: canary
+                exact: 'canary'
         - pause: {}
         - setHeaderRoute:
             name: rollout
