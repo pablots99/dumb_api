@@ -9,7 +9,7 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.hostname }}`) && PathPrefix(`/`)
       services:
-        - kind: service
+        - kind: Service
           name: {{ .Values.name }}-service
 ---
 # apiVersion: traefik.containo.us/v1alpha1
