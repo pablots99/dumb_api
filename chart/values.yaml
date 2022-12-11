@@ -1,0 +1,14 @@
+
+
+name: api
+hostname: api.test.com
+replicas: 1
+port: 8080
+image:
+  name: 'pablots89/tests:v3'
+  pullPolicy: Always
+
+
+
+
+
