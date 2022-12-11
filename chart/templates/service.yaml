@@ -21,9 +21,9 @@ spec:
   - name: primary
     route:
     - destination:
-      host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.canaryService
-      port:
-        number: 8080
+        host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.canaryService
+        port:
+          number: 8080
       weight: 100
   - name: canary
     match:
