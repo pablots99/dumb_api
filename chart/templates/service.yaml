@@ -21,10 +21,10 @@ spec:
   - name: primary        # referenced in canary.trafficRouting.istio.virtualService.routes
     route:
     - destination:
-        host: {{ .Values.name }}-stable # referenced in canary.stableService
+        host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.stableService
       weight: 100
     - destination:
-        host: {{ .Values.name }}-canary # referenced in canary.canaryService
+        host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.canaryService
       weight: 0
 ---
 #TaefikService
