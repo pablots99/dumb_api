@@ -1,22 +1,61 @@
 
-apiVersion: apps/v1
-kind: Deployment
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: api
+# spec:
+#   selector:
+#     matchLabels:
+#       app: api
+#   replicas: {{ .Values.replicas }}
+#   template:
+#     metadata:
+#       labels:
+#         app: api
+#     spec:
+#       containers:
+#       - name: api
+#         image: {{ .Values.image.name }}
+#         imagePullPolicy: {{ .Values.image.pullPolicy }}
+#         ports:
+#         - containerPort: {{ .Values.port }}
+# ---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: api
+  name: {{ .Values.name }}
+  labels:
+    app: {{ .Values.name }}
 spec:
   selector:
     matchLabels:
-      app: api
-  replicas: {{ .Values.replicas }}
+      app: {{ .Values.name }}
+  replicas: 2
   template:
     metadata:
       labels:
-        app: api
+        app: {{ .Values.name }}
     spec:
       containers:
-      - name: api
+      - name: {{ .Values.name }}
         image: {{ .Values.image.name }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          requests:
+            cpu: 25m
+            memory: 50Mi
+          limits:
+            cpu: 150m
+            memory: 150Mi
         ports:
         - containerPort: {{ .Values.port }}
-
+  strategy:
+    canary:
+      stableService: {{ .Values.name }}-stable
+      canaryService: {{ .Values.name }}-canary
+      #trafficRouting:
+        #nginx:
+          #stableIngress: realtimeapp-ingress
+      steps:
+      - setWeight: 50
+      - pause: {}
