@@ -54,12 +54,14 @@ spec:
       stableService: {{ .Values.name }}-stable
       canaryService: {{ .Values.name }}-canary
       trafficRouting:
+        managedRoutes:
+          - name: /
         istio:
           virtualService:
             name: {{ .Values.name }}-vsvc
       steps:
         - setHeaderRoute:
-            name: rollout
+            name: /
             match:
             - headerName: rollout # Custom-Header1=Mozilla
               headerValue:
