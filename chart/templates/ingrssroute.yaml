@@ -9,5 +9,15 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.hostname }}`) && PathPrefix(`/`)
       services:
-        - kind: VirtualService
-          name: {{ .Values.name }}-vsvc
+        - kind: service
+          name: {{ .Values.name }}-service
+---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: productpage-header
+#   namespace: bookinfo
+# spec:
+#   headers:
+#     customRequestHeaders:
+#       Host: productpage.bookinfo.svc
