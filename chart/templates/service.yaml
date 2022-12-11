@@ -18,7 +18,7 @@ spec:
   - "{{ .Values.name }}-service.backend.svc.cluster.local"
   
   http:
-  - name: primary
+  - name: stable
     route:
     - destination:
         host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.canaryService

@@ -59,6 +59,10 @@ spec:
         istio:
           virtualService:
             name: {{ .Values.name }}-vsvc
+            routes:
+              - canary
+              - stable
+
       steps:
         - pause: {}
         - setWeight: 100
