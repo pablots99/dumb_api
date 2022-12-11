@@ -22,9 +22,13 @@ spec:
     route:
     - destination:
         host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.stableService
+        port:
+          number: 8080
       weight: 100
     - destination:
         host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.canaryService
+        port:
+          number: 8080
       weight: 0
 ---
 #TaefikService
