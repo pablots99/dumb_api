@@ -1,7 +1,37 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: {{ .Values.name }}
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: api
+#   ports:
+#   - port: 8080
+#     protocol: TCP
+#     targetPort: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Values.name }}-vsvc
+spec:
+  hosts:
+  - api.test.com
+  http:
+  - name: primary        # referenced in canary.trafficRouting.istio.virtualService.routes
+    route:
+    - destination:
+        host: {{ .Values.name }}-stable # referenced in canary.stableService
+      weight: 100
+    - destination:
+        host: {{ .Values.name }}-canary # referenced in canary.canaryService
+      weight: 0
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.name }}-stable
 spec:
   type: ClusterIP
   selector:
@@ -11,28 +41,15 @@ spec:
     protocol: TCP
     targetPort: 8080
 ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ .Values.name }}-stable
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: api
-#   ports:
-#   - port: 8080
-#     protocol: TCP
-#     targetPort: 8080
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ .Values.name }}-canary
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: api
-#   ports:
-#   - port: 8080
-#     protocol: TCP
-#     targetPort: 8080
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-canary
+spec:
+  type: ClusterIP
+  selector:
+    app: api
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080

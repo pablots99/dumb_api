@@ -9,5 +9,5 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.hostname }}`) && PathPrefix(`/`)
       services:
-        - name: {{ .Values.name }}
-          port: 8080
+        - kind: VirtualService
+          name: {{ .Values.name }}-vsvc

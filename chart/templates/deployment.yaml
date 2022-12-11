@@ -51,18 +51,20 @@ spec:
         - containerPort: {{ .Values.port }}
   strategy:
     canary:
-      # stableService: {{ .Values.name }}-stable
-      # canaryService: {{ .Values.name }}-canary
-      #trafficRouting:
-        #nginx:
-          #stableIngress: realtimeapp-ingress
+      stableService: {{ .Values.name }}-stable
+      canaryService: {{ .Values.name }}-canary
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Values.name }}-vsvc
       steps:
-        - setWeight: 50
-      # - setHeaderRoute:
-      #     name: version
-      #     match:
-      #      - headerName: version # Custom-Header1=Mozilla
-      #        headerValue:
-      #         exact: v1
+        - setHeaderRoute:
+            name: rollout
+            match:
+            - headerName: rollout # Custom-Header1=Mozilla
+              headerValue:
+                exact: canary
+        - pause: {}
+        - setHeaderRoute:
+            name: rollout
 
-      - pause: {}
