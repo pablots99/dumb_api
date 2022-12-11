@@ -60,6 +60,7 @@ spec:
       # - setWeight: 50
       - setHeaderRoute:
           name: version
+          match:
            - headerName: version # Custom-Header1=Mozilla
              headerValue:
               exact: v1
