@@ -20,22 +20,22 @@ spec:
   http:
   - name: primary
     route:
-     - destination:
-        host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.canaryService
+    - destination:
+      host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.canaryService
+      port:
+        number: 8080
+      weight: 100
+  - name: canary
+    match:
+    - headers:
+      rollout:
+        exact: canary  
+    route:
+    - destination:
+        host: {{ .Values.name }}-canary.backend.svc.cluster.local # referenced in canary.stableService
         port:
           number: 8080
       weight: 0
-  - name: canary
-    match:
-     - headers:
-        rollout:
-          exact: canary  
-    route:
-    - destination:
-        host: {{ .Values.name }}-stable.backend.svc.cluster.local # referenced in canary.stableService
-        port:
-          number: 8080
-      weight: 100
    
 ---
 #TaefikService
