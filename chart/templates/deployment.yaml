@@ -61,7 +61,7 @@ spec:
             name: {{ .Values.name }}-vsvc
       steps:
         - pause: {}
-        - setWeight: 50
+        - setWeight: 100
         - setHeaderRoute:
             name: rollout
             match:
