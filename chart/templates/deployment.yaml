@@ -51,8 +51,8 @@ spec:
         - containerPort: {{ .Values.port }}
   strategy:
     canary:
-      stableService: {{ .Values.name }}-stable
-      canaryService: {{ .Values.name }}-canary
+      # stableService: {{ .Values.name }}-stable
+      # canaryService: {{ .Values.name }}-canary
       #trafficRouting:
         #nginx:
           #stableIngress: realtimeapp-ingress
