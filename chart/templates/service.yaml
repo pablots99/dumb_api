@@ -3,13 +3,10 @@ kind: Service
 metadata:
   name: {{ .Values.name }}-service
 spec:
-  type: ClusterIP
-  selector:
-    app: api
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
 ---
 #itsio vsvc
 apiVersion: networking.istio.io/v1alpha3
