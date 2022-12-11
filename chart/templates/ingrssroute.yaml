@@ -11,7 +11,7 @@ spec:
       services:
         - kind: Service
           name: {{ .Values.name }}-service
-          port: 80
+          port: 8080
 ---
 # apiVersion: traefik.containo.us/v1alpha1
 # kind: Middleware
