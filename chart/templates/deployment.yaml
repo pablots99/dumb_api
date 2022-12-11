@@ -57,5 +57,11 @@ spec:
         #nginx:
           #stableIngress: realtimeapp-ingress
       steps:
-      - setWeight: 50
+      # - setWeight: 50
+      - setHeaderRoute:
+          name: version
+           - headerName: version # Custom-Header1=Mozilla
+             headerValue:
+              exact: v1
+
       - pause: {}
